@@ -27,7 +27,7 @@ doPerm <- function(perm, X, Y){
     return(mix_r)
   }
 
-  if (perm = 1) {
+  if (perm == 1) {
     dist <- itorect(Ylist = Ylist, X = X)
   } else {
     dist <- purrr::map(1:perm, ~ itorect(Ylist = Ylist, X = X)) %>%
