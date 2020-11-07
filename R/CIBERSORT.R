@@ -9,7 +9,7 @@
 #' @param perm Number of permutations
 #' @param QN Perform quantile normalization or not (TRUE/FALSE)
 #' @import utils
-#' @import purrr reduce map
+#' @importFrom  purrr reduce map
 #' @export
 #' @examples
 #' \dotrun{
