@@ -3,7 +3,9 @@
 #' The core algorithm of CIBERSORT which is used svm
 #' @param X cell-specific gene expression
 #' @param y mixed expression per sample
-#' @importFrom furrr future_map availableCores
+#' @importFrom furrr future_map
+#' @importFrom future availableCores
+#'@importFrom stats cor
 #' @import e1071
 #' @export
 CoreAlg <- function(X, y){

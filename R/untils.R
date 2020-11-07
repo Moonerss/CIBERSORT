@@ -2,10 +2,10 @@
 #' @param nThreads The number of threads
 #' @param maxSize The max memory size in global, default 500MB, the unit is MB
 #' @import future
-#' @importFrom future availableCores
+#' @importFrom future availableCores plan
 #' @export
 #' @examples
-#' \dotrun{
+#' \dontrun{
 #'   enableParallel()
 #' }
 enableParallel <- function(nThreads = NULL, maxSize = 500) {

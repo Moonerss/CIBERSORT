@@ -3,7 +3,7 @@
   pkgVersion <- packageDescription(pkgname, fields="Version")
   msg <- paste0("Welcome to 'CIBERSORT' package!
 =======================================================================
-", "You are using ", pkgname, " version ", version,
-"=======================================================================")
+", "You are using ", pkgname, " version ", pkgVersion,
+"\n=======================================================================")
   packageStartupMessage(msg)
 }

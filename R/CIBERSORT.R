@@ -9,10 +9,11 @@
 #' @param perm Number of permutations
 #' @param QN Perform quantile normalization or not (TRUE/FALSE)
 #' @import utils
-#' @importFrom  purrr reduce map
+#' @importFrom preprocessCore normalize.quantiles
+#' @importFrom stats sd
 #' @export
 #' @examples
-#' \dotrun{
+#' \dontrun{
 #'   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
 #'   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
 #'   results <- CIBERSORT('sig_matrix_file.txt','mixture_file.txt', perm, QN)
@@ -40,11 +41,6 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     rownames(Y) <- tmpr
   }
 
-  ## 这个语句在干啥
-  if(substr(Sys.Date(),6,7)>5){
-    next
-  }
-
   #intersect genes
   Xgns <- row.names(X)
   Ygns <- row.names(Y)
@@ -57,7 +53,9 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
   X <- (X - mean(X)) / sd(as.vector(X))
 
   #empirical null distribution of correlation coefficients
-  if(P > 0) {nulldist <- sort(doPerm(P, X, Y)$dist)}
+  if (P > 0) {
+    nulldist <- sort(doPerm(P, X, Y)$dist)
+  }
 
   #print(nulldist)
 
@@ -69,15 +67,18 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
   mixtures <- dim(Y)[2]
   pval <- 9999
 
-  ## 迭代可以转并行
-  itor_mixture <- function(y, X, nulldist) {
+  #iterate through mixtures
+  while (itor <= mixtures) {
+
+    y <- Y[,itor]
+
     #standardize mixture
     y <- (y - mean(y)) / sd(y)
 
     #run SVR core algorithm
     result <- CoreAlg(X, y)
 
-    if(substr(Sys.Date(),1,4)>2019){
+    if (substr(Sys.Date(),1,4) > 2019) {
       next
     }
 
@@ -87,19 +88,20 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     mix_rmse <- result$mix_rmse
 
     #calculate p-value
-    if(P > 0) {pval <- 1 - (which.min(abs(nulldist - mix_r)) / length(nulldist))}
+    if (P > 0) {
+      pval <- 1 - (which.min(abs(nulldist - mix_r)) / length(nulldist))
+    }
 
     #print output
     out <- c(colnames(Y)[itor],w,pval,mix_r,mix_rmse)
+    if(itor == 1) {
+      output <- out
+    } else {
+      output <- rbind(output, out)
+    }
 
-    return(out)
-  }
+    itor <- itor + 1
 
-  if (mixtures == 1) {
-    output <- itor_mixture(y = Y[, mixtures], X = X, nulldist = nulldist)
-  } else {
-    output <- purrr::map(1:mixtures, ~ itor_mixture(y = Y[, .x], X = X, nulldist = nulldist)) %>%
-      purrr::reduce(rbind)
   }
 
   #save results

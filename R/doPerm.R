@@ -3,8 +3,9 @@
 #' Do the permutations analysis
 #' @param perm Number of permutations
 #' @param X cell-specific gene expression
-#' @param y mixed expression per sample
+#' @param Y mixed expression per sample
 #' @importFrom purrr reduce map
+#' @importFrom stats sd
 #' @export
 
 doPerm <- function(perm, X, Y){
