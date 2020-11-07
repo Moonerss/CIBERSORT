@@ -2,10 +2,11 @@ Package: CIBERSORT
 Type: Package
 Title: Cell-type Identification By Estimating Relative Subsets Of RNA Transcripts
 Version: 0.1.0
-Author@R: person(
-  "Erjie", "Zhao", 
-  email = "2055469819@qq.com",
-  role = c("aut", "cre"))
+Authors@R: 
+  person(given = "Erjie", 
+         family = "Zhao", 
+         email = "2055469819@qq.com",
+         role = c("aut", "cre"))
 Maintainer: Erjie Zhao <2055469819@qq.com>
 Description: A package can do cibersort analysis
 License: AGPL-3

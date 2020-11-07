@@ -28,4 +28,11 @@ This is a package version of CIBERSORT
 
 The Main function of CIBERSORT
 }
+\examples{
+\dotrun{
+  sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
+  mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
+  results <- CIBERSORT('sig_matrix_file.txt','mixture_file.txt', perm, QN)
+}
+}
 \keyword{datasets}

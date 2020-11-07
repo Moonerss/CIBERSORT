@@ -14,3 +14,8 @@ enableParallel(nThreads = NULL, maxSize = 500)
 \description{
 open multiple threads process
 }
+\examples{
+\dotrun{
+  enableParallel()
+}
+}
