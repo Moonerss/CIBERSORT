@@ -3,7 +3,7 @@
 #' @param maxSize The max memory size in global, default 500MB, the unit is MB
 #' @import future
 #' @export
-#' @example
+#' @examples
 #' \dotrun{
 #'   enableParallel()
 #' }

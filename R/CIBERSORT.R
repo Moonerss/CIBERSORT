@@ -11,7 +11,7 @@
 #' @import utils
 #' @import purrr reduce map
 #' @export
-#' @example
+#' @examples
 #' \dotrun{
 #'   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
 #'   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
