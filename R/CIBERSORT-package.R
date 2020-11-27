@@ -1,5 +1,10 @@
-#' @name CIBERSORT
+#' @title CIBERSORT-package
+#'
+#' @name CIBERSORT-package
+#'
 #' @description This is a package version of CIBERSORT
-"CIBERSORT"
+#'
+#' @docType package
+NULL
 
 

@@ -26,7 +26,7 @@ CoreAlg <- function(X, y){
   if (Sys.info()['sysname'] == 'Windows') {
     out <- future_map(1:svn_itor, res)
   } else {
-    if (svn_itor <= availableCores() - 3) {
+    if (svn_itor <= availableCores() - 2) {
       enableParallel(nThreads = svn_itor)
     } else {
       enableParallel()

@@ -1,11 +1,10 @@
 #' Main functions
 #'
 #' The Main function of CIBERSORT
-#' @param sig_matrix  gene expression matrix from isolated cells.
-#' row names are gene names, column names are cell names
+#' @param sig_matrix  sig_matrix file path to gene expression from isolated cells
 #'
-#' @param mixture_file heterogenous mixed expression matrix.
-#' row names are gene names, column names are sample names
+#' @param mixture_file mixture_file heterogenous mixed expression
+#'
 #' @param perm Number of permutations
 #' @param QN Perform quantile normalization or not (TRUE/FALSE)
 #' @import utils
@@ -16,9 +15,13 @@
 #' \dontrun{
 #'   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
 #'   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
-#'   results <- CIBERSORT('sig_matrix_file.txt','mixture_file.txt', perm, QN)
+#'   results <- cibersort(sig_matrix, mixture_file)
 #' }
-CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
+cibersort <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
+
+  #read in data
+  X <- read.delim(sig_matrix, header=T, sep="\t", row.names=1, check.names = F)
+  Y <- read.delim(mixture_file, header=T, sep="\t", row.names=1, check.names = F)
 
   X <- data.matrix(X)
   Y <- data.matrix(Y)
@@ -78,10 +81,6 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     #run SVR core algorithm
     result <- CoreAlg(X, y)
 
-    if (substr(Sys.Date(),1,4) > 2019) {
-      next
-    }
-
     #get results
     w <- result$w
     mix_r <- result$mix_r
@@ -103,9 +102,6 @@ CIBERSORT <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     itor <- itor + 1
 
   }
-
-  #save results
-  write.table(rbind(header,output), file="output/CIBERSORT-Results.txt", sep="\t", row.names=F, col.names=F, quote=F)
 
   #return matrix object containing all results
   obj <- rbind(header,output)

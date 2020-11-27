@@ -4,12 +4,14 @@
 \alias{enableParallel}
 \title{open multiple threads process}
 \usage{
-enableParallel(nThreads = NULL, maxSize = 500)
+enableParallel(nThreads = NULL, maxSize = 500, verbose = FALSE)
 }
 \arguments{
 \item{nThreads}{The number of threads}
 
 \item{maxSize}{The max memory size in global, default 500MB, the unit is MB}
+
+\item{verbose}{output other useful information}
 }
 \description{
 open multiple threads process
