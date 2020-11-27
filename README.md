@@ -8,7 +8,7 @@ The goal of CIBERSORT is to run the CIBERSORT flow.
 
 ## Installation
 
-You can install the released version of CIBERSORT from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of CIBERSORT from [github](https://github.com/Moonerss/CIBERSORT) with:
 
 ``` r
 install.packages("devtools")
