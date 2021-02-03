@@ -36,7 +36,7 @@ cibersort <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     Y <- read.delim(mixture_file, header=T, sep="\t", row.names=1, check.names = F)
     Y <- data.matrix(Y)
   } else {
-    Y <- mixed_expr
+    Y <- mixture_file
   }
 
 
