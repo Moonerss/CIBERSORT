@@ -1,9 +1,9 @@
 #' Main functions
 #'
 #' The Main function of CIBERSORT
-#' @param sig_matrix  sig_matrix file path to gene expression from isolated cells
+#' @param sig_matrix  sig_matrix file path to gene expression from isolated cells, or a matrix of expression profile of cells.
 #'
-#' @param mixture_file mixture_file heterogenous mixed expression
+#' @param mixture_file mixture_file file path to heterogenous mixed expression file, or a matrix of heterogenous mixed expression
 #'
 #' @param perm Number of permutations
 #' @param QN Perform quantile normalization or not (TRUE/FALSE)
@@ -13,18 +13,32 @@
 #' @export
 #' @examples
 #' \dontrun{
+#'   ## example 1
 #'   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
 #'   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
 #'   results <- cibersort(sig_matrix, mixture_file)
+#'   ## example 2
+#'   data(LM22)
+#'   data(mixed_expr)
+#'   results <- cibersort(sig_matrix = LM22, mixture_file = mixed_expr)
 #' }
 cibersort <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
 
   #read in data
-  X <- read.delim(sig_matrix, header=T, sep="\t", row.names=1, check.names = F)
-  Y <- read.delim(mixture_file, header=T, sep="\t", row.names=1, check.names = F)
+  if (is.character(sig_matrix)) {
+    X <- read.delim(sig_matrix, header=T, sep="\t", row.names=1, check.names = F)
+    X <- data.matrix(X)
+  } else {
+    X <- sig_matrix
+  }
 
-  X <- data.matrix(X)
-  Y <- data.matrix(Y)
+  if (is.character(mixture_file)) {
+    Y <- read.delim(mixture_file, header=T, sep="\t", row.names=1, check.names = F)
+    Y <- data.matrix(Y)
+  } else {
+    Y <- mixed_expr
+  }
+
 
   #order
   X <- X[order(rownames(X)),]

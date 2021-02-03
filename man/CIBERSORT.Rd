@@ -7,9 +7,9 @@
 cibersort(sig_matrix, mixture_file, perm = 0, QN = TRUE)
 }
 \arguments{
-\item{sig_matrix}{sig_matrix file path to gene expression from isolated cells}
+\item{sig_matrix}{sig_matrix file path to gene expression from isolated cells, or a matrix of expression profile of cells.}
 
-\item{mixture_file}{mixture_file heterogenous mixed expression}
+\item{mixture_file}{mixture_file file path to heterogenous mixed expression file, or a matrix of heterogenous mixed expression}
 
 \item{perm}{Number of permutations}
 
@@ -20,8 +20,13 @@ The Main function of CIBERSORT
 }
 \examples{
 \dontrun{
+  ## example 1
   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
   results <- cibersort(sig_matrix, mixture_file)
+  ## example 2
+  data(LM22)
+  data(mixed_expr)
+  results <- cibersort(sig_matrix = LM22, mixture_file = mixed_expr)
 }
 }
