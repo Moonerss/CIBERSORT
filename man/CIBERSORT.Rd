@@ -11,8 +11,6 @@ cibersort(sig_matrix, mixture_file, perm = 0, QN = TRUE)
 
 \item{mixture_file}{mixture_file file path to heterogenous mixed expression file, or a matrix of heterogenous mixed expression}
 
-\item{maxSize}{maximum size for the computation, to be passed to the future.global.maxSize. Default to 500 (in MB)}
-
 \item{perm}{Number of permutations}
 
 \item{QN}{Perform quantile normalization or not (TRUE/FALSE)}
