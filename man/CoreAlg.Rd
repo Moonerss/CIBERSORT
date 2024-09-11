@@ -10,6 +10,8 @@ CoreAlg(X, y)
 \item{X}{cell-specific gene expression}
 
 \item{y}{mixed expression per sample}
+
+\item{maxSize}{maximum memory size for computation}
 }
 \description{
 The core algorithm of CIBERSORT which is used svm

@@ -3,12 +3,13 @@
 #' The core algorithm of CIBERSORT which is used svm
 #' @param X cell-specific gene expression
 #' @param y mixed expression per sample
+#' @param maxSize maximum size for the computation, to be passed to the future.global.maxSize. Default to 500 (in MB) 
 #' @importFrom furrr future_map
 #' @importFrom future availableCores
 #'@importFrom stats cor
 #' @import e1071
 #' @export
-CoreAlg <- function(X, y){
+CoreAlg <- function(X, y, maxSize=500){
 
   #try different values of nu
   svn_itor <- 3
@@ -21,15 +22,15 @@ CoreAlg <- function(X, y){
     model
   }
 
-  enableParallel()
+  enableParallel(maxSize=maxSize)
 
   if (Sys.info()['sysname'] == 'Windows') {
     out <- future_map(1:svn_itor, res)
   } else {
     if (svn_itor <= availableCores() - 2) {
-      enableParallel(nThreads = svn_itor)
+      enableParallel(nThreads = svn_itor, maxSize=maxSize)
     } else {
-      enableParallel()
+      enableParallel(maxSize=maxSize)
     }
     out <- future_map(1:svn_itor, res)
   }
