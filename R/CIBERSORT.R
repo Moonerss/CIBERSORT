@@ -7,6 +7,7 @@
 #'
 #' @param perm Number of permutations
 #' @param QN Perform quantile normalization or not (TRUE/FALSE)
+#' @param maxSize maximum size for the computation, to be passed to the future.global.maxSize. Default to 500 (in MB)
 #' @import utils
 #' @importFrom preprocessCore normalize.quantiles
 #' @importFrom stats sd
@@ -22,7 +23,7 @@
 #'   data(mixed_expr)
 #'   results <- cibersort(sig_matrix = LM22, mixture_file = mixed_expr)
 #' }
-cibersort <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
+cibersort <- function(sig_matrix, mixture_file, maxSize=500, perm = 0, QN = TRUE){
 
   #read in data
   if (is.character(sig_matrix)) {
@@ -93,7 +94,7 @@ cibersort <- function(sig_matrix, mixture_file, perm = 0, QN = TRUE){
     y <- (y - mean(y)) / sd(y)
 
     #run SVR core algorithm
-    result <- CoreAlg(X, y)
+    result <- CoreAlg(X, y, maxSize)
 
     #get results
     w <- result$w
