@@ -12,6 +12,7 @@ You can install the released version of CIBERSORT from [github](https://github.c
 
 ``` r
 install.packages("devtools")
+devtools::install_github("bmbolstad/preprocessCore")
 devtools::install_github("Moonerss/CIBERSORT")
 ```
 
